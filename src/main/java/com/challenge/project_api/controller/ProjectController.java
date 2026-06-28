@@ -24,33 +24,33 @@ public class ProjectController {
     }
 
     @GetMapping
-    public Page<ProjectResponseDTO> listProjects(@RequestParam(required = false) String name, Pageable pageable) {
+    public Page<ProjectResponseDTO> listProjects(@RequestParam(name = "name", required = false) String name, Pageable pageable) {
         return projectService.listProjects(name, pageable);
     }
 
     @GetMapping("/{id}")
-    public ProjectResponseDTO getProject(@PathVariable Long id) {
+    public ProjectResponseDTO getProject(@PathVariable("id") Long id) {
         return projectService.getProject(id);
     }
 
     @PutMapping("/{id}")
-    public ProjectResponseDTO updateProject(@PathVariable Long id, @Valid @RequestBody ProjectRequestDTO dto) {
+    public ProjectResponseDTO updateProject(@PathVariable("id") Long id, @Valid @RequestBody ProjectRequestDTO dto) {
         return projectService.updateProject(id, dto);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteProject(@PathVariable Long id) {
+    public void deleteProject(@PathVariable("id") Long id) {
         projectService.deleteProject(id);
     }
 
     @PostMapping("/{projectId}/members/{memberId}")
-    public ProjectResponseDTO addMember(@PathVariable Long projectId, @PathVariable Long memberId) {
+    public ProjectResponseDTO addMember(@PathVariable("projectId") Long projectId, @PathVariable("memberId") Long memberId) {
         return projectService.addMemberToProject(projectId, memberId);
     }
 
     @DeleteMapping("/{projectId}/members/{memberId}")
-    public ProjectResponseDTO removeMember(@PathVariable Long projectId, @PathVariable Long memberId) {
+    public ProjectResponseDTO removeMember(@PathVariable("projectId") Long projectId, @PathVariable("memberId") Long memberId) {
         return projectService.removeMemberFromProject(projectId, memberId);
     }
 }
